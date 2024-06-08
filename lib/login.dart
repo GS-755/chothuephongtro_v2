@@ -1,4 +1,9 @@
+import 'dart:convert';
+
+import 'package:chothuephongtro_v2/models/user/loginnode.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -159,10 +164,31 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _handleLogin() {
+  Future<void> _handleLogin() async {
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
 
-
+    LoginNode loginNode = new LoginNode(username, password);
+    final API_URL = Uri.parse(dotenv.env['API_URL']!.trim() + "/login?userName$username=&password=$password");
+    try {
+      final response = await http.post(
+        API_URL,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'userName': loginNode.userName,
+          'password': loginNode.password,
+        }),
+      );
+      if (response.statusCode == 200) {
+        // Đăng nhập thành công
+        print('Đăng nhập thành công');
+      } else {
+        // Đăng nhập thất bại
+        print('Đăng nhập thất bại');
+      }
+    } catch (e) {
+      // Xử lý lỗi
+      print('Lỗi khi đăng nhập: $e');
+    }
   }
 }
