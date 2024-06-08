@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import './model/user.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -145,24 +145,26 @@ class _LoginPageState extends State<LoginPage> {
                   height: 16,
                 ),
                 Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center, // Center the children horizontally
-                crossAxisAlignment: CrossAxisAlignment.center, // Center the children vertically
-                children: [
-                  Text(
-                    'Already a member',
-                    style: TextStyle(fontSize: 12),
-                    textAlign: TextAlign.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .center, // Center the children horizontally
+                    crossAxisAlignment: CrossAxisAlignment
+                        .center, // Center the children vertically
+                    children: [
+                      Text(
+                        'Already a member',
+                        style: TextStyle(fontSize: 12),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(width: 4), // Add some space between the texts
+                      Text(
+                        'Login',
+                        style: TextStyle(fontSize: 12, color: Colors.blue),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 4), // Add some space between the texts
-                  Text(
-                    'Login',
-                    style: TextStyle(fontSize: 12, color: Colors.blue),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
+                ),
               ],
             ),
           ),

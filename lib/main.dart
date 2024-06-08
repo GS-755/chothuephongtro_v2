@@ -1,5 +1,5 @@
 import 'package:chothuephongtro_v2/landing-page.dart';
-import 'package:chothuephongtro_v2/login.dart';
+import 'package:chothuephongtro_v2/register.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: LoginPage());
+    return MaterialApp(home: RegisterPage());
   }
 }
 
