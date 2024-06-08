@@ -1,3 +1,5 @@
+import 'package:chothuephongtro_v2/landing-page.dart';
+import 'package:chothuephongtro_v2/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,14 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Cho thuê phòng trọ',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyanAccent),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Cho thuê phòng trọ'),
-    );
+    return MaterialApp(home: LoginPage());
   }
 }
 
