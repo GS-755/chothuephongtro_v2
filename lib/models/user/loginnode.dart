@@ -3,13 +3,13 @@ class LoginNode {
   late String _password;
 
   LoginNode(String userName, String password) {
-    this._userName = userName;
-    this._password = password;
+    _userName = userName;
+    _password = password;
   }
 
-  String get userName => this._userName;
-  String get password => this._password;
+  String get userName => _userName;
+  String get password => _password;
 
-  set userName(String value) { this._userName = value; }
-  set password(String value) { this._password = value; }
+  set userName(String value) { _userName = value; }
+  set password(String value) { _password = value; }
 }

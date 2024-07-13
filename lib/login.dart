@@ -168,11 +168,11 @@ class _LoginPageState extends State<LoginPage> {
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
 
-    LoginNode loginNode = new LoginNode(username, password);
-    final API_URL = Uri.parse(dotenv.env['API_URL']!.trim() + "/login?userName$username=&password=$password");
+    LoginNode loginNode = LoginNode(username, password);
+    final apiUrl = Uri.parse("${dotenv.env['API_URL']!.trim()}/login?userName$username=&password=$password");
     try {
       final response = await http.post(
-        API_URL,
+        apiUrl,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'userName': loginNode.userName,
