@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:chothuephongtro_v2/models/user/loginnode.dart';
+import 'package:chothuephongtro_v2/models/users/loginnode.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -169,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
     final password = _passwordController.text.trim();
 
     LoginNode loginNode = LoginNode(username, password);
-    final apiUrl = Uri.parse("${dotenv.env['API_URL']!.trim()}/login?userName$username=&password=$password");
+    final apiUrl = Uri.parse("${dotenv.env['API_URL']!.trim()}/accounts/login");
     try {
       final response = await http.post(
         apiUrl,
@@ -181,14 +181,15 @@ class _LoginPageState extends State<LoginPage> {
       );
       if (response.statusCode == 200) {
         // Đăng nhập thành công
-        print('Đăng nhập thành công');
+        print('[login.dart] Đăng nhập thành công');
+        Navigator.of(context).pushReplacementNamed('/user/index');
       } else {
         // Đăng nhập thất bại
-        print('Đăng nhập thất bại');
+        print('[login.dart] Đăng nhập thất bại');
       }
     } catch (e) {
       // Xử lý lỗi
-      print('Lỗi khi đăng nhập: $e');
+      print('[login.dart] Lỗi khi đăng nhập:\n $e');
     }
   }
 }

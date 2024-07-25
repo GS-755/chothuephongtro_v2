@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Column(
           children: [
-            Image.asset('assets/images/splash/splash_img.jpg', width: 550.0, height: 550.0),
+            Image.asset('assets/images/splash/splash_img.jpg', width: 550.0, height: 470.0),
             const SizedBox(width: 16.0, height: 16.0),
             const Center(
               child: Text(
