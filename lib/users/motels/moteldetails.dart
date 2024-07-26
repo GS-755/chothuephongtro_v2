@@ -31,7 +31,7 @@ class _MotelDetailsState extends State<MotelDetails> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  height: 180,
+                  height: 250,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(20),
@@ -39,7 +39,7 @@ class _MotelDetailsState extends State<MotelDetails> {
                     ),
                     child: Image.network(
                       UriAccess.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -117,17 +117,21 @@ class _MotelDetailsState extends State<MotelDetails> {
               padding: const EdgeInsets.only(top: 10, left: 25),
               child: Row(
                 children: [
-                  Text(
-                    motel.tieuDe,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,),
-
+                  Expanded(
+                    child: Text(
+                      motel.tieuDe,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      softWrap: true,
+                    ),
                   ),
                 ],
               ),
             ),
+
             // dia chi
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 25),
@@ -163,9 +167,9 @@ class _MotelDetailsState extends State<MotelDetails> {
               child: Row(
                 children: [
                   Text(
-                    'Tổng quan',
+                    'Giới thiệu về phòng',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
                     ),
@@ -200,6 +204,22 @@ class _MotelDetailsState extends State<MotelDetails> {
                   height: 1,
                   color: Colors.black12,)
             ),
+            const Padding(
+              padding: EdgeInsets.only(top: 15, left: 25, right: 25),
+              child: Row(
+                children: [
+                  Text(
+                    'Nơi này có những gì cho bạn',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            RentalInfoList(),
             // horizontal
             const Padding(
               padding: EdgeInsets.only(
@@ -218,9 +238,13 @@ class _MotelDetailsState extends State<MotelDetails> {
                 )
             ),
             // button
-            Padding(
-                padding: const EdgeInsets.only(
-                    top: 15, left: 25, right: 25),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
                 child: Row(
                   children: [
                     Expanded(
@@ -233,7 +257,6 @@ class _MotelDetailsState extends State<MotelDetails> {
                             color: Colors.black,
                             fontWeight: FontWeight.w600,
                           ),
-
                         ),
                       ),
                     ),
@@ -243,14 +266,15 @@ class _MotelDetailsState extends State<MotelDetails> {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => const ConfirmBooking()));
+                                builder: (context) => ConfirmBooking(motel: motel)));
                           },
                           child: const Text('Thuê trọ ngay'),
                         ),
                       ),
                     ),
                   ],
-                )
+                ),
+              ),
             ),
           ],
         ),
@@ -279,4 +303,90 @@ Widget itemHorizontalViewLocation(PhongTro motel) {
         ),
       ],
     ),);
+}
+
+class RentalInfoList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          RentalInfoItem(
+            icon: Icons.home,
+            title: 'Phòng trong nhà phố',
+            description:
+            'Bạn sẽ có phòng riêng trong một ngôi nhà và được sử dụng những khu vực chung.',
+          ),
+          const SizedBox(height: 10),
+          RentalInfoItem(
+            icon: Icons.info,
+            title: 'Thông tin nổi bật của nhà/phòng cho thuê',
+            description:
+            'Khu vực sinh hoạt chung: Bạn sẽ sử dụng chung một số khu vực trong nhà với Chủ nhà và khách khác.',
+          ),
+          const SizedBox(height: 10),
+          RentalInfoItem(
+            icon: Icons.bathtub,
+            title: 'Phòng tắm riêng tách biệt',
+            description:
+            'Chỗ ở này có phòng vệ sinh dành riêng cho bạn.',
+          ),
+          const SizedBox(height: 10),
+          RentalInfoItem(
+            icon: Icons.wifi,
+            title: 'Wi-fi nhanh',
+            description:
+            'Với tốc độ 345 Mbps, bạn có thể thực hiện cuộc gọi video và phát trực tuyến video cho cả nhóm.',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RentalInfoItem extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String description;
+
+  RentalInfoItem({
+    required this.icon,
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 24, color: Colors.black),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                description,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
