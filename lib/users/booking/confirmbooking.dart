@@ -1,18 +1,25 @@
 import 'dart:ui';
+import 'package:chothuephongtro_v2/models/motels/phongtro.dart';
+import 'package:chothuephongtro_v2/utils/uribuilder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 
 class ConfirmBooking extends StatefulWidget {
-  const ConfirmBooking({super.key});
+  final PhongTro motel;
+
+  const ConfirmBooking({super.key, required this.motel});
 
   @override
-  State<ConfirmBooking> createState() => _ConfirmBookingState();
+  State<ConfirmBooking> createState() => _ConfirmBookingState(motel: this.motel);
 }
 
 class _ConfirmBookingState extends State<ConfirmBooking> {
   bool isSelected = true;
   bool isSelected2 = false;
+  final PhongTro motel;
+
+  _ConfirmBookingState({required this.motel});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,14 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                   padding: EdgeInsets.only(top: 10),
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("Xác nhận và thanh toán", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15,color: Colors.black),),
+                    child: Text(
+                      "Xác nhận và thanh toán",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: Colors.black
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -84,8 +98,8 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                         width: 80,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
-                          child: Image.asset(
-                            "assets/hotel/hing1.jpg",
+                          child: Image.network(
+                            UriBuilder.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -126,14 +140,14 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                               ],
                             ),
                             const SizedBox(height: 2),
-                            const Row(
+                            Row(
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'motel.tieuDe',
+                                    motel.tieuDe,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
@@ -143,16 +157,20 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                               ],
                             ),
                             const SizedBox(height: 5),
-                            const Row(
+                            Row(
                               children: [
-                                Icon(Icons.location_on, size: 9, color: Colors.black),
-                                SizedBox(width: 3), // Thêm SizedBox để có khoảng cách giữa icon và văn bản
+                                const Icon(
+                                    Icons.location_on,
+                                    size: 9,
+                                    color: Colors.black
+                                ),
+                                const SizedBox(width: 3), // Thêm SizedBox để có khoảng cách giữa icon và văn bản
                                 Expanded( // Sử dụng Expanded ở đây để văn bản không bị tràn ra ngoài
                                   child: Text(
-                                    'motel.diaChi',
+                                    motel.diaChi,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 10,
                                       color: Colors.grey,
                                     ),
@@ -162,7 +180,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              NumberFormat('###,###').format(1900000),
+                              NumberFormat('###,###đ').format(motel.soTien),
                               style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.green,
@@ -194,7 +212,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 children: [
                   Text('Lựa chọn phương thức thanh toán',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w600,
                     ),
@@ -271,69 +289,73 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
               padding: EdgeInsets.only(top: 20, left: 25),
               child: Row(
                 children: [
-                  Text('Chi tiết',
+                  Text(
+                    'Chi tiết',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w600, ),
-
                   ),
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25,right: 25,top: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 25,right: 25,top: 5),
               child: Row(children: [
-                Align(alignment: Alignment.centerLeft,
+                const Align(alignment: Alignment.centerLeft,
                   child: Text(
                     'Chuyển khoản đủ',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
                       color: Colors.grey,
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'Giá tiền',
+                    NumberFormat('###,###đ').format(motel.soTien),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
                     ),
                   ),
                 ),
               ],),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25,right: 25,top: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 25,right: 25,top: 5),
               child: Row(children: [
-                Align(alignment: Alignment.centerLeft,
+                const Align(
+                  alignment: Alignment.centerLeft,
                   child: Text(
                     'Tiền cọc',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 15,
                       color: Colors.grey,
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'Giá tiền',
+                    NumberFormat('###,###đ').format(motel.tienCoc),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
                     ),
                   ),
                 ),
@@ -344,28 +366,30 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 padding: const EdgeInsets.only(top: 20, left: 25,right: 25),
                 child: Container(width: double.infinity,height: 1,color: Colors.black12,)
             ),
+            const SizedBox(height: 12),
             // tong tien
-            const Padding(
-              padding: EdgeInsets.only(left: 25,right: 25,top: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 25,right: 25,top: 5),
               child: Row(children: [
-                Align(alignment: Alignment.centerLeft,
+                const Align(alignment: Alignment.centerLeft,
                   child: Text('Tổng tiền:',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 17,
                       color: Colors.black,
-                      fontWeight: FontWeight.w600, ),
-
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Text('Giá tiền',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600, ),
-
+                  child: Text(
+                    NumberFormat('###,###đ').format(motel.soTien),
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],),
@@ -383,7 +407,9 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                             showModalBottomSheet(
                               context: context,
                               isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(50))),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(top: Radius.circular(50))
+                              ),
                               builder: (BuildContext context){
                                 return AnimatedContainer(
                                   decoration: BoxDecoration(
@@ -421,7 +447,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                                         ),
                                       ),
                                       ElevatedButton(
-                                        onPressed: (){
+                                        onPressed: () {
                                           Navigator.of(context).pushReplacementNamed('/user/index');
                                         },
                                         child: const Text('Trở về'),
@@ -431,7 +457,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                                 );
                               },);
                           },
-                          child: const Text('Chốt Luôn'),
+                          child: const Text('Thanh toán'),
                         ),
                       ),
                     ),
