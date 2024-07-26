@@ -1,3 +1,4 @@
+import 'package:chothuephongtro_v2/register.dart';
 import 'package:chothuephongtro_v2/users/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:chothuephongtro_v2/login.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const SplashScreen(),
         '/splash': (context) => const SplashScreen(),
         '/login': (context) => const LoginPage(),
+        '/login/register': (context) => const RegisterPage(),
         '/user/index': (context) => const HomePage()
       },
     );
