@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
-
 import '../../components/navigationbar.dart';
 
 class ConfirmBooking extends StatefulWidget {
@@ -13,8 +12,9 @@ class ConfirmBooking extends StatefulWidget {
 }
 
 class _ConfirmBookingState extends State<ConfirmBooking> {
-  bool isSelected = false;
+  bool isSelected = true;
   bool isSelected2 = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,13 +124,6 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                                   itemCount: 5,
                                   itemSize: 18,
                                 ),
-                                Text(
-                                  '${80} Reviews',
-                                  style: TextStyle(
-                                    fontSize: 9,
-                                    color: Colors.grey.withOpacity(0.8),
-                                  ),
-                                ),
                               ],
                             ),
                             const SizedBox(height: 2),
@@ -138,7 +131,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'Ten khach san',
+                                    'motel.tieuDe',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: TextStyle(
@@ -157,7 +150,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                                 SizedBox(width: 3), // Thêm SizedBox để có khoảng cách giữa icon và văn bản
                                 Expanded( // Sử dụng Expanded ở đây để văn bản không bị tràn ra ngoài
                                   child: Text(
-                                    'dia chi nha o day',
+                                    'motel.diaChi',
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: TextStyle(
@@ -170,10 +163,11 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              NumberFormat('###,###.###').format(1900000),
+                              NumberFormat('###,###').format(1900000),
                               style: const TextStyle(
-                                fontSize: 15,
+                                fontSize: 18,
                                 color: Colors.green,
+                                fontWeight: FontWeight.bold
                               ),
                             ),
                           ],
@@ -189,54 +183,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 padding: const EdgeInsets.only(top: 15, left: 25,right: 25),
                 child: Container(width: double.infinity,height: 1,color: Colors.black12,)
             ),
-            // date
-            Padding(
-              padding: const EdgeInsets.only(left: 25,right: 25,top: 10),
-              child: Row(children: [
-                const Align(alignment: Alignment.centerLeft,
-                  child: Text('Chọn ngày',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600, ),
-
-                  ),
-                ),
-                const Spacer(),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                    height: 30,
-                    width: 35,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,  // Loại bỏ padding mặc định
-                      ),
-                      onPressed: (){},
-                      child: const Icon(Icons.note_add),
-                    ),
-                  ),
-                ),
-              ],),
-            ),
-            // text ngay thang
-            const Padding(
-              padding: EdgeInsets.only(left: 25,right: 25,top: 2),
-              child: Row(children: [
-                Align(alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Ngày tháng ở đây',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ],),
-            ),
-            // duong line
+            // Đường line
             Padding(
                 padding: const EdgeInsets.only(top: 5, left: 25,right: 25),
                 child: Container(width: double.infinity,height: 1,color: Colors.black12,)
@@ -250,8 +197,8 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.black,
-                      fontWeight: FontWeight.w600, ),
-
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ],
               ),
@@ -261,12 +208,11 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
               padding: const EdgeInsets.only(left: 25,right: 25),
               child: Row(children: [
                 const Align(alignment: Alignment.centerLeft,
-                  child: Text('Chuyển khoảng đủ',
+                  child: Text('Chuyển khoản đủ',
                     style: TextStyle(
                       fontSize: 13,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600, ),
-
+                      color: Colors.black
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -298,8 +244,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.black,
-                      fontWeight: FontWeight.w600, ),
-
+                    ),
                   ),
                 ),
                 const Spacer(),
@@ -327,7 +272,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
               padding: EdgeInsets.only(top: 20, left: 25),
               child: Row(
                 children: [
-                  Text('chi tiết',
+                  Text('Chi tiết',
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.black,
@@ -342,7 +287,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
               child: Row(children: [
                 Align(alignment: Alignment.centerLeft,
                   child: Text(
-                    'chi tiết',
+                    'Chuyển khoản đủ',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
@@ -355,7 +300,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'Giá tền',
+                    'Giá tiền',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
@@ -371,7 +316,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
               child: Row(children: [
                 Align(alignment: Alignment.centerLeft,
                   child: Text(
-                    'chi tiết',
+                    'Tiền cọc',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
@@ -384,36 +329,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'Giá tền',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ],),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 25,right: 25,top: 5),
-              child: Row(children: [
-                Align(alignment: Alignment.centerLeft,
-                  child: Text(
-                    'chi tiết',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-                Spacer(),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    'Giá tền',
+                    'Giá tiền',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(

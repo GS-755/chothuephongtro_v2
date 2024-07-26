@@ -85,20 +85,20 @@ class PhongTro {
     };
   }
 
-  TaiKhoan get taiKhoan => this._taiKhoan;
-  ViTri get viTri => this._viTri;
-  int get maTT => this._maTT;
-  int get maVT => this._maVT;
-  String get tenDangNhap => this._tenDangNhap;
-  String get diaChi => this._diaChi;
-  String get base64Thumbnail => this._base64Thumbnail;
-  String get shortText => this._shortText;
-  String get hinhAnh => this._hinhAnh;
-  String get moTa => this._moTa;
-  double get tienCoc => this._tienCoc;
-  double get soTien => this._soTien;
-  double get dienTich => this._dienTich;
-  DateTime get ngayDang => this._ngayDang;
-  String get tieuDe => this._tieuDe;
-  int get maPT => this._maPT;
+  TaiKhoan get taiKhoan => _taiKhoan;
+  ViTri get viTri => _viTri;
+  int get maTT => _maTT;
+  int get maVT => _maVT;
+  String get tenDangNhap => _tenDangNhap;
+  String get diaChi => _diaChi;
+  String get base64Thumbnail => _base64Thumbnail;
+  String get shortText => _shortText;
+  String get hinhAnh => _hinhAnh;
+  String get moTa => _moTa;
+  double get tienCoc => _tienCoc;
+  double get soTien => _soTien;
+  double get dienTich => _dienTich;
+  DateTime get ngayDang => _ngayDang;
+  String get tieuDe => _tieuDe;
+  int get maPT => _maPT;
 }

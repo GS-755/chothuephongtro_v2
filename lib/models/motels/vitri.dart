@@ -19,7 +19,7 @@ class ViTri {
   String get HinhAnh => _HinhAnh;
 
   Map<String, dynamic> toJson() =>
-      {'MaVT': this._MaVT, 'Quan': this._Quan, 'HinhAnh': this._HinhAnh};
+      {'MaVT': _MaVT, 'Quan': _Quan, 'HinhAnh': _HinhAnh};
   factory ViTri.fromJson(Map<String, dynamic> json) {
     return ViTri(
         MaVT: json['MaVT'], Quan: json['Quan'], HinhAnh: json['HinhAnh']);

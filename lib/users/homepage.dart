@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: ListView(
               children: [
-                Container(
+                SizedBox(
                   height: 240,
                   child: Stack(
                     children: [
@@ -100,11 +100,11 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
-                                      color: Color(0xFFF7F7F7),
+                                      color: const Color(0xFFF7F7F7),
                                     ),
                                     height: 40,
                                     width: 300,
-                                    child: Center(
+                                    child: const Center(
                                         child: Text(
                                           "Tìm kiếm phòng trọ",
                                           style: TextStyle(color: Colors.grey),
@@ -113,11 +113,11 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
-                                      color: Color(0xFFFFEDD7),
+                                      color: const Color(0xFFFFEDD7),
                                     ),
                                     height: 40,
                                     width: 70,
-                                    child: Center(
+                                    child: const Center(
                                         child: Text("TPHCM",
                                             style: TextStyle(
                                               color: Colors.orange,
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                         } else {
                           return Container(
                             alignment: Alignment.center,
-                            child: CircularProgressIndicator(),
+                            child: const CircularProgressIndicator(),
                           );
                         }
                       },
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                MotelDetails(maPT: 2,),
+                                                MotelDetails(motel: snapshot.data![index],),
                                           ),
                                         );
                                       },
@@ -235,7 +235,7 @@ class _HomePageState extends State<HomePage> {
 
                           return Container(
                             alignment: Alignment.center,
-                            child: CircularProgressIndicator(),
+                            child: const CircularProgressIndicator(),
                           );
                         }),
                   ),
@@ -274,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const MotelDetails(maPT: 2,),
+                                              MotelDetails(motel: snapshot.data![index],),
                                         ),
                                       );
                                     },
@@ -291,7 +291,7 @@ class _HomePageState extends State<HomePage> {
 
                           return Container(
                             alignment: Alignment.center,
-                            child: CircularProgressIndicator(),
+                            child: const CircularProgressIndicator(),
                           );
                         }),
                   ),
@@ -335,7 +335,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(5.0),
                       child: Image.network(
                         UriAccess.buildImageUrl(
-                            'getmotelimage?motelid=${motel.maPT}'),
+                            '/getmotelimage?motelid=${motel.maPT}'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -404,7 +404,7 @@ class _HomePageState extends State<HomePage> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 2),
                         child: Text(
-                          motel.shortText,
+                          motel.diaChi,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
@@ -491,7 +491,7 @@ class _HomePageState extends State<HomePage> {
                 location.Quan,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -599,7 +599,7 @@ class _HomePageState extends State<HomePage> {
                         Expanded(
                           // Sử dụng Expanded ở đây để văn bản không bị tràn ra ngoài
                           child: Text(
-                            motel.shortText,
+                            motel.diaChi,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: const TextStyle(
