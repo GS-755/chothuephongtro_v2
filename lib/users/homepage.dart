@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:chothuephongtro_v2/users/motels/moteldetails.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import '../models/motels/phongtro.dart';
@@ -15,6 +16,8 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
+
 class _HomePageState extends State<HomePage> {
   // Call List location API
   Future<List<ViTri>> fetchLocations() async {
@@ -28,6 +31,9 @@ class _HomePageState extends State<HomePage> {
       throw Exception('[trangchu.dart] Failed to load Location list');
     }
   }
+  final _searchController = TextEditingController();
+  bool _hasSearched = false;
+  List<dynamic> _searchResults = [];
 
   Future<List<PhongTro>> fetchMotels() async {
     final response = await http.get(UriAccess.buildApiUri('/motels'));
@@ -95,37 +101,58 @@ class _HomePageState extends State<HomePage> {
                             ),
                             height: 80,
                             child: Center(
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: const Color(0xFFF7F7F7),
-                                    ),
-                                    height: 40,
-                                    width: 300,
-                                    child: const Center(
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          bottomLeft: Radius.circular(8),
+                                        ),
+                                        color: Color(0xFFFFEDD7),
+                                      ),
+                                      height: 40,
+                                      width: 70,
+                                      child: const Center(
                                         child: Text(
-                                          "Tìm kiếm phòng trọ",
-                                          style: TextStyle(color: Colors.grey),
-                                        )),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: const Color(0xFFFFEDD7),
+                                          "TPHCM",
+                                          style: TextStyle(
+                                            color: Colors.orange,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    height: 40,
-                                    width: 70,
-                                    child: const Center(
-                                        child: Text("TPHCM",
-                                            style: TextStyle(
-                                              color: Colors.orange,
-                                              fontWeight: FontWeight.bold,
-                                            ))),
-                                  ),
-                                ],
-                              ),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(8),
+                                            bottomRight: Radius.circular(8),
+                                          ),
+                                          color: Color(0xFFF7F7F7),
+                                        ),
+                                        height: 40,
+                                        child: Center(
+                                          child: TextField(
+                                            controller: _searchController,
+                                            decoration: const InputDecoration(
+                                              labelText: 'Tìm kiếm phòng trọ',
+                                              fillColor: Color(0xFFFFEDD7),
+                                              filled: true,
+                                              border: InputBorder.none,
+                                            ),
+                                            style: TextStyle(color: Colors.orange),
+                                            onSubmitted: (value) {
+                                              _handlesearch();
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+
                             ),
                           ),
                         ),
@@ -183,6 +210,49 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 // cac tro gia re
+                const Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: SizedBox(
+                    height: 20,
+                    child: Text(
+                      "Phòng trọ vừa được tìm kiếm",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: Colors.black
+                      ),
+                    ),
+                  ),
+                ),
+                if(_hasSearched)
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: SizedBox(
+                      height: 240,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _searchResults.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 5, left: 2, right: 2),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MotelDetails(motel: _searchResults[index]),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                child: itemHorizontalView(_searchResults[index]),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 const Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: SizedBox(
@@ -656,4 +726,34 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  Future<void> _handlesearch() async {
+    final keyword = _searchController.text.trim();
+    print(keyword);
+    final apiUrl = Uri.parse("${dotenv.env['API_URL']!.trim()}/motels/SearchMotel?keyword=$keyword");
+    try {
+      final response = await http.get(
+        apiUrl,
+        headers: {'Content-Type': 'application/json'},
+      );
+      if (response.statusCode == 200) {
+        print('[search.dart] Search successful');
+        final data = jsonDecode(response.body);
+        // Assuming data is a list of motels
+        setState(() {
+          _searchResults = data.map((json) => PhongTro.fromJson(json)).toList();
+          _hasSearched = true;
+        });
+        // Process the data as needed
+        print('[search.dart] Search results: $data');
+      } else {
+        // Đăng nhập thất bại
+        print('[search.dart] Search failed');
+      }
+    } catch (e) {
+      // Xử lý lỗi
+      print('[search.dart] Error during search:\n $e');
+    }
+  }
 }
+
+
