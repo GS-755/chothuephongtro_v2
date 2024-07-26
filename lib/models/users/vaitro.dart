@@ -1,28 +1,22 @@
-import 'package:chothuephongtro_v2/utils/emptystring.dart';
-
 class VaiTro {
-  late int _maVaiTro = 0;
-  late String _tenVaiTro = EmptyString.get();
+  final int _maVaiTro;
+  final String _tenVaiTro;
 
-  VaiTro();
-  VaiTro.fullInit(int maVaiTro, String tenVaiTro) {
-    this._maVaiTro = maVaiTro;
-    this._tenVaiTro = tenVaiTro;
-  }
-
-  int get maVaiTro => this._maVaiTro;
-  String get tenVaiTro => this._tenVaiTro;
+  VaiTro({required int maVaiTro,
+    required String tenVaiTro,})
+      : _maVaiTro = maVaiTro, _tenVaiTro = tenVaiTro;
 
   factory VaiTro.fromJson(Map<String, dynamic> json) {
-    return VaiTro.fullInit(
-      json['MaVaiTro'],
-      json['TenVaiTro'],
+    return VaiTro(
+      maVaiTro: json['MaVaiTro'],
+      tenVaiTro: json['TenVaiTro'],
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
-      'MaVaiTro': this._maVaiTro,
-      'TenVaiTro': this._tenVaiTro,
+      'MaVaiTro': _maVaiTro,
+      'TenVaiTro': _tenVaiTro,
     };
   }
 }

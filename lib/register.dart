@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'dart:convert';
+import 'package:chothuephongtro_v2/models/users/registernode.dart';
 import 'package:http/http.dart' as http;
 import 'package:chothuephongtro_v2/models/users/taikhoan.dart';
 import 'package:chothuephongtro_v2/utils/uribuilder.dart';
@@ -24,18 +25,12 @@ class _RegisterPageState extends State<RegisterPage> {
   void _moveToLoginPage() {
     Navigator.of(context).pushReplacementNamed('/login');
   }
-  Future<bool> _sendRegisterRequest(TaiKhoan account) async {
+  Future<bool> _sendRegisterRequest(RegisterNode account) async {
     try {
       final response = await http.post(
-          UriAccess.buildApiUri('/accounts/register'),
+          UriBuilder.buildApiUri('/accounts/register'),
           headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({
-              "tendangnhap": account.tenDangNhap.trim(),
-              'matkhau': account.matKhau.trim(),
-              'email': account.email.trim(),
-              'sodt': account.soDT.trim(),
-              'mavaitro': account.maVaiTro
-          })
+          body: account.toJson()
       );
       if(response.statusCode == 201) {
         print('[register.dart] Registered successfully!');
@@ -87,12 +82,13 @@ class _RegisterPageState extends State<RegisterPage> {
       }
       else {
         // Bundle account object
-        TaiKhoan account = new TaiKhoan();
-        account.tenDangNhap = _accountController.text.trim();
-        account.email = _emailController.text.trim();
-        account.soDT = _phoneNumberController.text.trim();
-        account.matKhau = _passwordController.text;
-        account.maVaiTro = _selectedRole.value;
+        RegisterNode account = new RegisterNode(
+            _accountController.text.trim(),
+            _emailController.text.trim(),
+            _phoneNumberController.text.trim(),
+            _passwordController.text,
+            _selectedRole.value
+        );
         // Prepare HTTP request [POST]
         FutureBuilder<bool>(
           future: _sendRegisterRequest(account),

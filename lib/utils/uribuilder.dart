@@ -1,6 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class UriAccess {
+class UriBuilder {
   static Uri buildApiUri(String expectedDestination) {
     return Uri.parse('${dotenv.env['API_URL']}${expectedDestination.trim()}');
   }

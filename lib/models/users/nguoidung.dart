@@ -1,39 +1,44 @@
-import 'package:chothuephongtro_v2/utils/emptystring.dart';
-
 class User {
-  String _cccd = EmptyString.get();
-  String _ho = EmptyString.get();
-  String _ten = EmptyString.get();
-  DateTime _ngaySinh = DateTime.now();
-  int _gioiTinh = 1;
-  String _diaChi = EmptyString.get();
-  String _tenDangNhap = EmptyString.get();
+  final String _cccd;
+  final String _ho;
+  final String _ten;
+  final DateTime _ngaySinh;
+  final int _gioiTinh;
+  final String _diaChi;
+  final String _tenDangNhap;
 
-  User();
-  User.fullInit(this._cccd, this._ho, this._ten, this._ngaySinh, this._gioiTinh,
-      this._diaChi, this._tenDangNhap);
+  User({
+    required String cccd,
+    required String ho,
+    required String ten,
+    required DateTime ngaySinh,
+    required int gioiTinh,
+    required String diaChi,
+    required String tenDangNhap,
+  }) : _cccd = cccd, _ho = ho,_ten = ten,_ngaySinh = ngaySinh, _gioiTinh = gioiTinh
+  ,_diaChi = diaChi, _tenDangNhap = tenDangNhap;
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return User.fullInit(
-      json['CCCD'],
-      json['Ho'],
-      json['Ten'],
-      DateTime.parse(json['NgaySinh']),
-      json['GioiTinh'],
-      json['DiaChi'],
-      json['TenDangNhap'],
+    return User(
+      cccd: json['CCCD'],
+      ho: json['Ho'],
+      ten: json['Ten'],
+      ngaySinh: DateTime.parse(json['NgaySinh']),
+      gioiTinh: json['GioiTinh'],
+      diaChi: json['DiaChi'],
+      tenDangNhap: json['TenDangNhap'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'CCCD': this._cccd,
-      'Ho': this._ho,
-      'Ten': this._ten,
-      'NgaySinh': this._ngaySinh.toIso8601String(),
-      'GioiTinh': this._gioiTinh,
-      'DiaChi': this._diaChi,
-      'TenDangNhap': this._tenDangNhap,
+      'CCCD': _cccd,
+      'Ho': _ho,
+      'Ten': _ten,
+      'NgaySinh': _ngaySinh.toIso8601String(),
+      'GioiTinh': _gioiTinh,
+      'DiaChi': _diaChi,
+      'TenDangNhap': _tenDangNhap,
     };
   }
 }

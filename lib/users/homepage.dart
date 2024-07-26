@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // Call List location API
   Future<List<ViTri>> fetchLocations() async {
-    final response = await http.get(UriAccess.buildApiUri('/locations'));
+    final response = await http.get(UriBuilder.buildApiUri('/locations'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List<PhongTro>> fetchMotels() async {
-    final response = await http.get(UriAccess.buildApiUri('/motels'));
+    final response = await http.get(UriBuilder.buildApiUri('/motels'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<List<PhongTro>> fetchNewestMotels() async {
     final response =
-    await http.get(UriAccess.buildApiUri('/motels/getnewestmotel'));
+    await http.get(UriBuilder.buildApiUri('/motels/getnewestmotel'));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
@@ -334,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5.0),
                       child: Image.network(
-                        UriAccess.buildImageUrl(
+                        UriBuilder.buildImageUrl(
                             '/getmotelimage?motelid=${motel.maPT}'),
                         fit: BoxFit.cover,
                       ),
@@ -475,7 +475,7 @@ class _HomePageState extends State<HomePage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: Image.network(
-                  UriAccess.buildImageUrl(
+                  UriBuilder.buildImageUrl(
                       '/getlocationimage?locationId=${location.MaVT}'),
                   fit: BoxFit.cover,
                 ),
@@ -529,7 +529,7 @@ class _HomePageState extends State<HomePage> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: Image.network(
-                    UriAccess.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
+                    UriBuilder.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
                     fit: BoxFit.cover,
                   ),
                 ),
