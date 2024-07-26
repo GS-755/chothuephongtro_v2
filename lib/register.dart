@@ -1,10 +1,6 @@
-import 'dart:ui';
-import 'dart:convert';
 import 'package:chothuephongtro_v2/models/users/registernode.dart';
 import 'package:http/http.dart' as http;
-import 'package:chothuephongtro_v2/models/users/taikhoan.dart';
 import 'package:chothuephongtro_v2/utils/uribuilder.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -75,14 +71,14 @@ class _RegisterPageState extends State<RegisterPage> {
       if(_passwordController.text != _confirmPasswordController.text.trim()) {
         ScaffoldMessenger.of(context).
           showSnackBar(
-            SnackBar(
+            const SnackBar(
                 content: Text('Mật khẩu không trùng khớp')
             )
           );
       }
       else {
         // Bundle account object
-        RegisterNode account = new RegisterNode(
+        RegisterNode account = RegisterNode(
             _accountController.text.trim(),
             _emailController.text.trim(),
             _phoneNumberController.text.trim(),

@@ -11,7 +11,7 @@ class ConfirmBooking extends StatefulWidget {
   const ConfirmBooking({super.key, required this.motel});
 
   @override
-  State<ConfirmBooking> createState() => _ConfirmBookingState(motel: this.motel);
+  State<ConfirmBooking> createState() => _ConfirmBookingState(motel: motel);
 }
 
 class _ConfirmBookingState extends State<ConfirmBooking> {

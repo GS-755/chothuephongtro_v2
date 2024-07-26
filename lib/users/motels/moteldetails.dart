@@ -243,7 +243,7 @@ class _MotelDetailsState extends State<MotelDetails> {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => ConfirmBooking(motel: this.motel)));
+                                builder: (context) => ConfirmBooking(motel: motel)));
                           },
                           child: const Text('Thuê trọ ngay'),
                         ),
