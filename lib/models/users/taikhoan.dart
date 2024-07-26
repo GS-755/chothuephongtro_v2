@@ -53,4 +53,14 @@ class TaiKhoan {
       'User': _user.toJson(),
     };
   }
+
+  User get user => _user;
+  int get maVaiTro => _maVaiTro;
+  String get base64Avatar => _base64Avatar;
+  String get strAvatar => _strAvatar;
+  String get soDT => _soDT;
+  String get email => _email;
+  String get matKhau => _matKhau;
+  String get tenDangNhap => _tenDangNhap;
+  VaiTro get vaiTro => _vaiTro;
 }

@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 'ỨNG DỤNG CHO THUÊ PHÒNG TRỌ',
                 style: TextStyle(
-                  fontSize: 24.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 'DÀNH CHO SINH VIÊN HUFLIT',
                 style: TextStyle(
-                    fontSize: 24.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.bold
                 ),
               ),
@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           color: Color.fromRGBO(81, 81, 81, 100)
                       ),
                     ),
-                    const SizedBox(height: 32.0),
+                    const SizedBox(height: 10.0),
                     ElevatedButton(
                         onPressed: moveToLoginPage,
                         style: ElevatedButton.styleFrom(

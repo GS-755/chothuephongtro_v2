@@ -38,7 +38,7 @@ class _MotelDetailsState extends State<MotelDetails> {
                       bottomRight: Radius.circular(20),
                     ),
                     child: Image.network(
-                      UriAccess.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
+                      UriBuilder.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -271,7 +271,7 @@ Widget itemHorizontalViewLocation(PhongTro motel) {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5.0),
               child: Image.network (
-                UriAccess.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
+                UriBuilder.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
                 fit: BoxFit.cover,
               ),
             ),

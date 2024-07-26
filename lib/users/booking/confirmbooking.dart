@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
-import '../../components/navigationbar.dart';
 
 class ConfirmBooking extends StatefulWidget {
   const ConfirmBooking({super.key});
@@ -423,7 +422,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                                       ),
                                       ElevatedButton(
                                         onPressed: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const NavigationBottomBar()));
+                                          Navigator.of(context).pushReplacementNamed('/user/index');
                                         },
                                         child: const Text('Trở về'),
                                       ),
