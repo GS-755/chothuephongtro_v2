@@ -1,17 +1,22 @@
 import 'dart:ui';
+import 'package:chothuephongtro_v2/models/motels/phongtro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
+import '../../utils/uribuilder.dart';
+
 
 class ConfirmBooking extends StatefulWidget {
-  const ConfirmBooking({super.key});
+  final PhongTro motel;
 
+  const ConfirmBooking({Key? key, required this.motel}) : super(key: key);
   @override
   State<ConfirmBooking> createState() => _ConfirmBookingState();
 }
 
 class _ConfirmBookingState extends State<ConfirmBooking> {
-  bool isSelected = true;
+  int isSelected = 1;
   bool isSelected2 = false;
 
   @override
@@ -84,8 +89,8 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                         width: 80,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
-                          child: Image.asset(
-                            "assets/hotel/hing1.jpg",
+                          child: Image.network(
+                            UriBuilder.buildImageUrl('/getmotelimage?motelid=${widget.motel.maPT}'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -126,15 +131,15 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                               ],
                             ),
                             const SizedBox(height: 2),
-                            const Row(
+                            Row(
                               children: [
                                 Expanded(
                                   child: Text(
-                                    'motel.tieuDe',
+                                    widget.motel.tieuDe,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 12,
+                                    style: const TextStyle(
+                                      fontSize: 22,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
@@ -143,13 +148,13 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                               ],
                             ),
                             const SizedBox(height: 5),
-                            const Row(
+                            Row(
                               children: [
                                 Icon(Icons.location_on, size: 9, color: Colors.black),
                                 SizedBox(width: 3), // Thêm SizedBox để có khoảng cách giữa icon và văn bản
                                 Expanded( // Sử dụng Expanded ở đây để văn bản không bị tràn ra ngoài
                                   child: Text(
-                                    'motel.diaChi',
+                                    widget.motel.diaChi,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: TextStyle(
@@ -176,11 +181,6 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                   ],
                 ),
               ),
-            ),
-            // duong line
-            Padding(
-                padding: const EdgeInsets.only(top: 15, left: 25,right: 25),
-                child: Container(width: double.infinity,height: 1,color: Colors.black12,)
             ),
             // Đường line
             Padding(
@@ -218,9 +218,9 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Radio(
-                    value: true,
+                    value: 1,
                     groupValue: isSelected,
-                    onChanged: (value) {
+                    onChanged: (int ?value) {
                       setState(() {
                         isSelected = value!;
                       });
@@ -250,11 +250,11 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Radio(
-                    value: true,
-                    groupValue: isSelected2,
-                    onChanged: (value) {
+                    value: 2,
+                    groupValue: isSelected,
+                    onChanged: (int ?value) {
                       setState(() {
-                        isSelected2 = value!;
+                        isSelected = value!;
                       });
                     },
                   ),
@@ -273,7 +273,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 children: [
                   Text('Chi tiết',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w600, ),
 
@@ -281,7 +281,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 ],
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 25,right: 25,top: 5),
               child: Row(children: [
                 Align(alignment: Alignment.centerLeft,
@@ -290,7 +290,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 14,
                       color: Colors.grey,
                     ),
                   ),
@@ -299,18 +299,18 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'Giá tiền',
+                    NumberFormat('###,###,### đ/tháng').format(widget.motel.soTien),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
+                      fontSize: 14,
+                      color: Colors.black,
                     ),
                   ),
                 ),
               ],),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 25,right: 25,top: 5),
               child: Row(children: [
                 Align(alignment: Alignment.centerLeft,
@@ -319,7 +319,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 14,
                       color: Colors.grey,
                     ),
                   ),
@@ -328,12 +328,12 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    'Giá tiền',
+                    NumberFormat('###,###,### đ/tháng').format(widget.motel.tienCoc),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
+                      fontSize: 14,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -345,13 +345,13 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 child: Container(width: double.infinity,height: 1,color: Colors.black12,)
             ),
             // tong tien
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 25,right: 25,top: 5),
               child: Row(children: [
                 Align(alignment: Alignment.centerLeft,
                   child: Text('Tổng tiền:',
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.w600, ),
 
@@ -360,14 +360,17 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                 Spacer(),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Text('Giá tiền',
+                  child: Text(
+                    isSelected == 1
+                        ? NumberFormat('###,###,### đ/tháng').format(widget.motel.soTien)
+                        : NumberFormat('###,###,### đ/tháng').format(widget.motel.tienCoc),
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 20,
                       color: Colors.black,
-                      fontWeight: FontWeight.w600, ),
-
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
+                )
               ],),
             ),
             // button
@@ -380,63 +383,96 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           onPressed: (){
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(50))),
-                              builder: (BuildContext context){
-                                return AnimatedContainer(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white60,
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(50),
-                                      topRight: Radius.circular(50),),
-                                    boxShadow: <BoxShadow>[
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        offset: const Offset(0, 2),
-                                        blurRadius: 8.0,
-                                      ),
-                                    ],
-                                  ),
-                                  duration: const Duration(microseconds: 300),
-                                  height: 300,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 80,bottom: 10),
-                                        child: Text('Xác nhận thành công !',
-                                          style: TextStyle(color: Colors.black,fontSize: 20),),
-                                      ),
-                                      // text ngay thang
-                                      const Padding(
-                                        padding: EdgeInsets.only(bottom: 20),
-                                        child: Text(
-                                          'Chúc mừng bạn ngày mới vui vẻ',
-                                          style: TextStyle(
-                                            fontSize: 11,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: (){
-                                          Navigator.of(context).pushReplacementNamed('/user/index');
-                                        },
-                                        child: const Text('Trở về'),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },);
+                            showDialog(context: context, builder: (context) => const CustomModalSuccess());
                           },
-                          child: const Text('Chốt Luôn'),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: double.infinity,
+                              child: const Text(
+                                'Thanh Toán',
+                                textAlign: TextAlign.center, // Align the text to the center
+                                style: TextStyle(fontSize: 16, color: Colors.black),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ],
                 )
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CustomModalSuccess extends StatelessWidget {
+  const CustomModalSuccess({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Add a success icon at the top
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.green,
+              size: 50,
+            ),
+            const SizedBox(height: 20),
+            // Add the success message
+            Text(
+              'Xác Nhận Thanh Toán Thành Công',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.green[700],
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Add a line separator
+            Divider(color: Colors.grey[300], thickness: 1),
+            const SizedBox(height: 10),
+            // Add a thank you message
+            Text(
+              'Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey[700],
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Add a close button
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.lightGreen, // Button background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text('Đóng',  style: TextStyle(fontSize: 16, color: Colors.black)),
+              ),
             ),
           ],
         ),

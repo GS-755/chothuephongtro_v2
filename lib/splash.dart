@@ -23,13 +23,22 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Center(
         child: Column(
           children: [
-            Image.asset('assets/images/splash/splash_img.jpg', width: 550.0, height: 470.0),
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(64),
+                  bottomRight: Radius.circular(64)
+              ), // Adjust the radius as needed
+              child: Image.asset(
+                'assets/images/splash/splash_img.jpg',
+                fit: BoxFit.fill,
+              ),
+            ),
             const SizedBox(width: 16.0, height: 16.0),
             const Center(
               child: Text(
                 'ỨNG DỤNG CHO THUÊ PHÒNG TRỌ',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -38,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 'DÀNH CHO SINH VIÊN HUFLIT',
                 style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 24.0,
                     fontWeight: FontWeight.bold
                 ),
               ),
@@ -48,16 +57,18 @@ class _SplashScreenState extends State<SplashScreen> {
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Column(
                   children: [
-                    const Text(
-                      """Chúng tôi đảm bảo cung cấp cho sinh viên HUFLIT phòng trọ với giá cả hợp lý, tiện nghi theo giá tiền và an ninh nhất, gần trường nhất có thể.""",
-                      style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.normal,
-                          height: 1.65,
-                          color: Color.fromRGBO(81, 81, 81, 100)
+                    const Center(
+                      child: Text(
+                        """Chúng tôi đảm bảo cung cấp cho sinh viên HUFLIT phòng trọ với giá cả hợp lý, tiện nghi theo giá tiền và an ninh nhất, gần trường nhất có thể.""",
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal,
+                            height: 1.65,
+                            color: Color.fromRGBO(81, 81, 81, 100)
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 10.0),
+                    const SizedBox(height: 32.0),
                     ElevatedButton(
                         onPressed: moveToLoginPage,
                         style: ElevatedButton.styleFrom(
@@ -69,11 +80,11 @@ class _SplashScreenState extends State<SplashScreen> {
                           ),
                         ),
                         child: const Text(
-                            'Bắt đầu',
+                          'Bắt đầu',
                           style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.white,
-                            fontStyle: FontStyle.normal
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontStyle: FontStyle.normal
                           ),
                         )
                     )

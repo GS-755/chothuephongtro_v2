@@ -10,11 +10,11 @@ class RegisterNode {
 
   Map<String, dynamic> toJson() {
     return {
-      'TenDangNhap': this._tenDangNhap,
-      'MatKhau': this._matKhau,
-      'Email': this._email,
-      'SoDT': this._soDt,
-      'MaVaiTro': this._maVaiTro
+      'TenDangNhap': _tenDangNhap,
+      'MatKhau': _matKhau,
+      'Email': _email,
+      'SoDT': _soDt,
+      'MaVaiTro': _maVaiTro
     };
   }
 }
