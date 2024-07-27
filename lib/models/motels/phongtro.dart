@@ -1,3 +1,5 @@
+import 'package:chothuephongtro_v2/models/motels/ttphongtro.dart';
+
 import 'vitri.dart';
 import '../users/taikhoan.dart';
 
@@ -18,6 +20,7 @@ class PhongTro {
   final int _maTT;
   final ViTri _viTri;
   final TaiKhoan _taiKhoan;
+  final TTPhongTro _ttPhongTro;
 
   PhongTro({
     required int maPT,
@@ -36,12 +39,13 @@ class PhongTro {
     required int maTT,
     required ViTri viTri,
     required TaiKhoan taiKhoan,
+    required TTPhongTro ttPhongTro
   }) : _maPT= maPT, _tieuDe = tieuDe, _ngayDang = ngayDang,
         _dienTich = dienTich, _soTien = soTien, _tienCoc = tienCoc,
         _moTa = moTa, _hinhAnh = hinhAnh,_shortText = shortText,
         _base64Thumbnail = base64Thumbnail,_diaChi = diaChi,
         _tenDangNhap = tenDangNhap,_maVT = maVT,_maTT = maTT,
-        _viTri = viTri, _taiKhoan = taiKhoan;
+        _viTri = viTri, _taiKhoan = taiKhoan, _ttPhongTro = ttPhongTro;
 
   factory PhongTro.fromJson(Map<String, dynamic> json) {
     return PhongTro(
@@ -61,6 +65,7 @@ class PhongTro {
       maTT: json['MaTT'],
       viTri: ViTri.fromJson(json['ViTri']),
       taiKhoan: TaiKhoan.fromJson(json['TaiKhoan']),
+      ttPhongTro: TTPhongTro.fromJson(json['TTPhongTro'])
     );
   }
 
@@ -71,17 +76,13 @@ class PhongTro {
       'NgayDang': _ngayDang.toIso8601String(),
       'DienTich': _dienTich,
       'SoTien': _soTien,
-      'TienCoc': _tienCoc,
       'MoTa': _moTa,
       'HinhAnh': _hinhAnh,
-      'ShortText': _shortText,
       'Base64Thumbnail': _base64Thumbnail,
       'DiaChi': _diaChi,
       'TenDangNhap': _tenDangNhap,
       'MaVT': _maVT,
-      'MaTT': _maTT,
-      'ViTri': _viTri.toJson(),
-      'TaiKhoan': _taiKhoan.toJson(),
+      'MaTT': _maTT
     };
   }
 
