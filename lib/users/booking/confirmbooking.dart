@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import '../../components/navigationbar.dart';
+import '../../utils/uribuilder.dart';
 
 
 class ConfirmBooking extends StatefulWidget {
@@ -89,8 +90,8 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                         width: 80,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
-                          child: Image.asset(
-                            "assets/hotel/hing1.jpg",
+                          child: Image.network(
+                            UriAccess.buildImageUrl('/getmotelimage?motelid=${widget.motel.maPT}'),
                             fit: BoxFit.cover,
                           ),
                         ),

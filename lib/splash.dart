@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(64),
                 bottomRight: Radius.circular(64)
               ), // Adjust the radius as needed
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 24.0,),
+            // const SizedBox(height: 24.0),
             Container(
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Column(
@@ -68,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 32.0),
+                    // const SizedBox(height: 12.0),
                     ElevatedButton(
                         onPressed: moveToLoginPage,
                         style: ElevatedButton.styleFrom(
