@@ -1,10 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:chothuephongtro_v2/utils/uribuilder.dart';
 import 'package:intl/intl.dart';
 import '../../models/motels/phongtro.dart';
 import 'package:chothuephongtro_v2/users/booking/confirmbooking.dart';
+
+import '../../utils/uribuilder.dart';
 
 class MotelDetails extends StatefulWidget {
   final PhongTro motel;
@@ -38,7 +39,7 @@ class _MotelDetailsState extends State<MotelDetails> {
                       bottomRight: Radius.circular(20),
                     ),
                     child: Image.network(
-                      UriAccess.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
+                      UriBuilder.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -295,7 +296,7 @@ Widget itemHorizontalViewLocation(PhongTro motel) {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5.0),
               child: Image.network (
-                UriAccess.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
+                UriBuilder.buildImageUrl('/getmotelimage?motelid=${motel.maPT}'),
                 fit: BoxFit.cover,
               ),
             ),

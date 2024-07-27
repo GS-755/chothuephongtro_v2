@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
-import '../../components/navigationbar.dart';
 import '../../utils/uribuilder.dart';
 
 
@@ -91,7 +90,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
                           child: Image.network(
-                            UriAccess.buildImageUrl('/getmotelimage?motelid=${widget.motel.maPT}'),
+                            UriBuilder.buildImageUrl('/getmotelimage?motelid=${widget.motel.maPT}'),
                             fit: BoxFit.cover,
                           ),
                         ),
