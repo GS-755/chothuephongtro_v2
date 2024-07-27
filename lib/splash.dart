@@ -20,78 +20,81 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(64),
-                  bottomRight: Radius.circular(64)
-              ), // Adjust the radius as needed
-              child: Image.asset(
-                'assets/images/splash/splash_img.jpg',
-                fit: BoxFit.fill,
-              ),
-            ),
-            const SizedBox(width: 16.0, height: 16.0),
-            const Center(
-              child: Text(
-                'ỨNG DỤNG CHO THUÊ PHÒNG TRỌ',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Center(
+          child: Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(64),
+                    bottomRight: Radius.circular(64)
+                ), // Adjust the radius as needed
+                child: Image.asset(
+                  'assets/images/splash/splash_img.jpg',
+                  fit: BoxFit.fill,
                 ),
               ),
-            ),
-            const Center(
-              child: Text(
-                'DÀNH CHO SINH VIÊN HUFLIT',
-                style: TextStyle(
+              const SizedBox(height: 16.0),
+              const Center(
+                child: Text(
+                  'ỨNG DỤNG CHO THUÊ PHÒNG TRỌ',
+                  style: TextStyle(
                     fontSize: 24.0,
-                    fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 24.0,),
-            Container(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: Column(
-                  children: [
-                    const Center(
-                      child: Text(
-                        """Chúng tôi đảm bảo cung cấp cho sinh viên HUFLIT phòng trọ với giá cả hợp lý, tiện nghi theo giá tiền và an ninh nhất, gần trường nhất có thể.""",
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.normal,
-                            height: 1.65,
-                            color: Color.fromRGBO(81, 81, 81, 100)
+              const Center(
+                child: Text(
+                  'DÀNH CHO SINH VIÊN HUFLIT',
+                  style: TextStyle(
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8.0,),
+              Container(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: Column(
+                    children: [
+                      const Center(
+                        child: Text(
+                          """Chúng tôi đảm bảo cung cấp cho sinh viên HUFLIT phòng trọ với giá cả hợp lý, tiện nghi theo giá tiền và an ninh nhất, gần trường nhất có thể.""",
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.normal,
+                              height: 1.65,
+                              color: Color.fromRGBO(81, 81, 81, 100)
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 32.0),
-                    ElevatedButton(
-                        onPressed: moveToLoginPage,
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(16.0),
-                          backgroundColor: const Color.fromRGBO(85, 101, 255, 100),
-                          minimumSize: const Size.fromHeight(32.0), // Thiết lập chiều cao tối thiểu là 32.0
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16.0), // Bo góc không
+                      const SizedBox(height: 12.0),
+                      ElevatedButton(
+                          onPressed: moveToLoginPage,
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(16.0),
+                            backgroundColor: const Color.fromRGBO(85, 101, 255, 100),
+                            minimumSize: const Size.fromHeight(32.0), // Thiết lập chiều cao tối thiểu là 32.0
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0), // Bo góc không
+                            ),
                           ),
-                        ),
-                        child: const Text(
-                          'Bắt đầu',
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              color: Colors.white,
-                              fontStyle: FontStyle.normal
-                          ),
-                        )
-                    )
-                  ],
-                )
-            ),
-          ],
+                          child: const Text(
+                            'Bắt đầu',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.white,
+                                fontStyle: FontStyle.normal
+                            ),
+                          )
+                      )
+                    ],
+                  )
+              ),
+            ],
+          ),
         ),
       ),
     );

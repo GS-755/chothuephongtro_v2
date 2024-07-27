@@ -1,24 +1,86 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:chothuephongtro_v2/models/motels/phongtro.dart';
+import 'package:chothuephongtro_v2/models/transactions/giaodich.dart';
+import 'package:chothuephongtro_v2/users/booking/vnpaywebview.dart';
+import 'package:chothuephongtro_v2/users/transactions/paymenturlnode.dart';
+import 'package:chothuephongtro_v2/users/transactions/vnpaynode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:localstorage/localstorage.dart';
 import '../../utils/uribuilder.dart';
-
+import 'package:http/http.dart' as http;
 
 class ConfirmBooking extends StatefulWidget {
   final PhongTro motel;
 
   const ConfirmBooking({Key? key, required this.motel}) : super(key: key);
+
   @override
-  State<ConfirmBooking> createState() => _ConfirmBookingState();
+  State<ConfirmBooking> createState() => _ConfirmBookingState(motel: this.motel);
 }
 
 class _ConfirmBookingState extends State<ConfirmBooking> {
   int isSelected = 1;
   bool isSelected2 = false;
+  final PhongTro motel;
+  _ConfirmBookingState({required this.motel});
 
+  Future<void> _handleTransactionMaker() async {
+    final String userName = localStorage.getItem('username').toString();
+    final int motelId = motel.maPT;
+    final int transactType = isSelected;
+
+    try {
+      final response = await http.post(
+          UriBuilder.buildApiUri('/transactions/postgiaodich'),
+          headers: { 'Content-Type': 'application/json' },
+          body: jsonEncode({
+            'MaLoaiGD': transactType,
+            'TenDangNhap': userName,
+            'MaPT': motelId
+          })
+      );
+      if(response.statusCode == 201) {
+        GiaoDich transact = GiaoDich.fromJson(jsonDecode(response.body));
+        VnPayNode node = new VnPayNode(maGD: transact.maGD);
+        final vnPayResponse = await http.post(
+          UriBuilder.buildApiUri('/vnpay/sendtransaction'),
+            headers: { 'Content-Type': 'application/json' },
+            body: node.toJson()
+        );
+        if(vnPayResponse.statusCode == 200) {
+          PaymentUrlNode urlNode = PaymentUrlNode.fromJson(
+              jsonDecode(response.body)
+          );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => VnPayWebView(websiteUrl: urlNode)
+              )
+          );
+        }
+        else if(vnPayResponse.statusCode == 401) {
+          print('[confirmbooking.dart] Session expired!');
+        }
+        else {
+          print('[confirmbooking.dart] Unable to process vnpay transaction - ${response.statusCode}');
+        }
+      }
+      else if(response.statusCode == 401) {
+        print('[confirmbooking.dart] Session expired!');
+      }
+      else {
+        print('[confirmbooking.dart] Unable to make transaction - ${response.statusCode}');
+      }
+    }
+    catch(ex) {
+      print('[confirmbooking.dart] An error has occured when making transaction!');
+      print(ex);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -382,8 +444,9 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
-                          onPressed: (){
-                            showDialog(context: context, builder: (context) => const CustomModalSuccess());
+                          onPressed: () {
+                            _handleTransactionMaker();
+                            // showDialog(context: context, builder: (context) => const CustomModalSuccess());
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),

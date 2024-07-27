@@ -1,9 +1,11 @@
 import 'dart:convert';
-
+import 'package:shared_prefs_cookie_store/shared_prefs_cookie_store.dart';
 import 'package:chothuephongtro_v2/models/users/loginnode.dart';
+import 'package:chothuephongtro_v2/models/users/taikhoan.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:localstorage/localstorage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -185,6 +187,9 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         // Đăng nhập thành công
         print('[login.dart] Đăng nhập thành công');
+        TaiKhoan account = TaiKhoan.fromJson(jsonDecode(response.body));
+        localStorage.setItem('username', loginNode.userName);
+        localStorage.setItem('role', '${account.maVaiTro}');
         Navigator.of(context).pushReplacementNamed('/user/index');
       } else {
         // Đăng nhập thất bại

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:chothuephongtro_v2/users/motels/moteldetails.dart';
+import 'package:chothuephongtro_v2/utils/emptystring.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -215,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                   child: SizedBox(
                     height: 20,
                     child: Text(
-                      "Phòng trọ vừa được tìm kiếm",
+                      '',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 15,

@@ -3,10 +3,12 @@ import 'package:chothuephongtro_v2/users/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:chothuephongtro_v2/login.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:localstorage/localstorage.dart';
 import 'splash.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
+  initLocalStorage();
 
   runApp(const MyApp());
 }
