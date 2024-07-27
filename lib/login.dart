@@ -16,6 +16,9 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  void _moveToRegisterPage() {
+    Navigator.of(context).pushReplacementNamed('/login/register');
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -91,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextField(
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        labelText: 'Email hoặc Số điện thoại',
+                        labelText: 'Tên đăng nhập',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16.0)
                         ),
@@ -145,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(width: 8.0),
                   GestureDetector(
-                    onTap: () { },
+                    onTap: _moveToRegisterPage,
                     child: const Text(
                       'Đăng ký ngay',
                       style: TextStyle(

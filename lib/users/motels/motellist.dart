@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MotelList extends StatefulWidget {
   const MotelList({super.key});
@@ -12,25 +11,6 @@ class _MotelListState extends State<MotelList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 15.0,
-            vertical: 5
-        ),
-        child: GNav(
-          haptic: true, // haptic feedback
-          tabBorderRadius: 15,
-          tabActiveBorder: Border.all(color: Colors.black, width: 0.5),
-          duration: const Duration(milliseconds: 400),
-          gap: 8,
-          padding: const EdgeInsets.all(10),
-          tabs: const [
-            GButton(icon: Icons.home,text: 'Home',textColor: Colors.black,),
-            GButton(icon: Icons.favorite_border,text: 'Like',textColor: Colors.black),
-            GButton(icon: Icons.search, text: 'Search',textColor: Colors.black),
-            GButton(icon: Icons.settings, text: 'Setting',textColor: Colors.black),
-          ],),
-      ),
       body: Column(children: [
         Container(
           decoration: BoxDecoration(color: Colors.white70,
